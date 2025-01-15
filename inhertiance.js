@@ -3,6 +3,8 @@ function HtmlElement(type,textContext="")
     this.id=HtmlElement.prototype.counter++
     this.type=type
     this.textContext=textContext
+    if(new.target)
+         throw new Error("can't create an instance of abstract class")
 }
 HtmlElement.prototype.counter=0
 HtmlElement.prototype.render=function(){
@@ -48,28 +50,48 @@ SelectElement.prototype.constructor=SelectElement
 
 function generateElement()
 {
- let type=document.querySelector("#elemType").value
- let context=document.querySelector("#elemContext").value
- let element=new HtmlElement(type,context)
- let elem=element.render()
- document.body.querySelector("#image1").append(elem)
-
+    try{
+        let type=document.querySelector("#elemType").value
+        let context=document.querySelector("#elemContext").value
+        let element=new HtmlElement(type,context)
+        let elem=element.render()
+        document.body.querySelector("#image1").append(elem)
+       
+    }
+    catch(error)
+    {
+        console.log(error.message)
+    }
 }
 
 function generateImage()
 {
-let src=document.querySelector("#elemSrc").value
-let alt=document.querySelector("#elemAlt").value
-let element=new ImageElement(src,alt)
-let elem=element.render()
-document.body.querySelector("#element1").append(elem)
+    try{
+        let src=document.querySelector("#elemSrc").value
+        let alt=document.querySelector("#elemAlt").value
+        let element=new ImageElement(src,alt)
+        let elem=element.render()
+        document.body.querySelector("#element1").append(elem)
+    }
+    catch(error)
+    {
+        console.log(error.message)
+    }
+
 
 }
 
 function generateSelect()
 {
-let options=document.querySelector("#select").value
-let element=new SelectElement(options)
-let elem=element.render()
-document.body.querySelector("#select1").append(elem)
+    try
+    {
+        let options=document.querySelector("#select").value
+        let element=new SelectElement(options)
+        let elem=element.render()
+        document.body.querySelector("#select1").append(elem)
+    }
+        catch(error)
+    {
+        console.log(error.message)
+    }
 }
